@@ -3,9 +3,10 @@ import styles from './create.module.css'
 import EditButton from '../nodesList/node/editButton/editButton'
 interface props {
     onButtonClick: (node:string) => void,
-    editModeIsClicked: boolean
+    isEdit: boolean,
+    switchEditMode: (isEdit:boolean)=>void
 }
-function Create({onButtonClick, editModeIsClicked} : props) {
+function Create({onButtonClick, isEdit, switchEditMode} : props) {
     const [value, setValue] = useState<string>('')
     function changeValue(e:React.ChangeEvent<HTMLTextAreaElement>) {
         setValue(e.target.value)
@@ -16,9 +17,9 @@ function Create({onButtonClick, editModeIsClicked} : props) {
                 
             </textarea>
             <div className={styles.right}>
-                {editModeIsClicked === false ? (
+                {isEdit === false ? (
                     <button onClick={()=>onButtonClick(value)} className={styles.button} type="submit">Добавить</button>
-                ) : <EditButton />}
+                ) : <EditButton isEdit={isEdit} switchEditMode={switchEditMode}/>}
             </div>
         </>
     )

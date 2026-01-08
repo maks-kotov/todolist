@@ -1,7 +1,11 @@
 import styles from './editButton.module.css'
-function EditButton() {
+interface props {
+    switchEditMode: (isEdit:boolean)=>void,
+    isEdit: boolean
+}
+function EditButton({switchEditMode, isEdit}:props) {
     return (
-                <button className={styles.edit}>
+                <button onClick={()=>switchEditMode(!isEdit)} className={styles.edit}>
                     <img src="./src/assets/icons/edit.png" alt="icon" />
                 </button>
     )
