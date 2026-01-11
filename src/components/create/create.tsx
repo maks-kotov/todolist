@@ -18,7 +18,10 @@ function Create({onButtonClick, isEdit, switchEditMode} : props) {
             </textarea>
             <div className={styles.right}>
                 {isEdit === false ? (
-                    <button onClick={()=>onButtonClick(value)} className={styles.button} type="submit">Добавить</button>
+                    <button onClick={()=>{
+                        onButtonClick(value)
+                        setValue('')
+                    }} className={styles.button} type="submit">Добавить</button>
                 ) : <EditButton isEdit={isEdit} switchEditMode={switchEditMode}/>}
             </div>
         </>

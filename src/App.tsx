@@ -22,7 +22,9 @@ function App() {
       {!isEdit && <Header />} {/*если настоящее значение false, то мы показываем. !editNodeIsClicked даёт true и оно покажется  */}
       {!isEdit && <Search />}
       <Create onButtonClick={pushNode} switchEditMode={switchEditMode} isEdit={isEdit}/>
+      {!isEdit &&
       <NodesList nodeArr={nodeArr} switchEditMode={switchEditMode} isEdit={isEdit}/>
+      }
   </div>
   )
 }

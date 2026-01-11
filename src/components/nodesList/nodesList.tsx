@@ -8,21 +8,16 @@ interface props {
 function NodesList({nodeArr, switchEditMode, isEdit} : props) {
     return (
         <>
-            {!isEdit && 
-            (
-                <>
-                <span className={styles.title}>Список:</span>
-                
-                
-                {nodeArr.length === 0 ? (
-                    <p className={styles.emptyMessage}>Создайте первую заметку</p>
-                ) 
-                : 
-                nodeArr.map((text, i)=>(
-                    <Node isEdit={isEdit} switchEditMode={switchEditMode} key={i} text={text} />
-                ))}
-                </>
-            )}
+            <span className={styles.title}>Список:</span>
+            
+            
+            {nodeArr.length === 0 ? (
+                <p className={styles.emptyMessage}>Создайте первую заметку</p>
+            ) 
+            : 
+            nodeArr.map((text, i)=>(
+                <Node isEdit={isEdit} switchEditMode={switchEditMode} key={i} text={text} />
+            ))}
         </>
     )
 }

@@ -11,3 +11,6 @@ function EditButton({switchEditMode, isEdit}:props) {
     )
 }
 export default EditButton
+
+// при клике на edit value textarea должно быть равно тексту из node
+// при клике на edit value textarea должно быть равно тексту из node
