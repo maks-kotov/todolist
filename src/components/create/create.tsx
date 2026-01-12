@@ -1,17 +1,26 @@
-import { useState} from 'react'
+import { useEffect, useState} from 'react'
 import styles from './create.module.css'
-import EditButton from '../nodesList/node/editButton/editButton'
+import EditButton from '../notesList/note/editButton/editButton'
 interface props {
-    onButtonClick: (node:string) => void,
+    pushNote: (node:string) => void,
     isEdit: boolean,
     switchEditMode: (isEdit:boolean)=>void,
-    editingText: string
+    editingText: string,
+    getTextareaText: (text:string)=>void
 }
-function Create({onButtonClick, isEdit, switchEditMode} : props) {
+function Create({pushNote, isEdit, switchEditMode, editingText, getTextareaText} : props) {
     const [value, setValue] = useState<string>('')
     function changeValue(e:React.ChangeEvent<HTMLTextAreaElement>) {
         setValue(e.target.value)
     }
+    useEffect(()=>{
+        if(isEdit) {
+            setValue(editingText)
+        }
+        else {
+            setValue('')
+        }
+    },[isEdit])
     return (
         <>
             <textarea onChange={changeValue} name="#" className={styles.textarea} placeholder='Создать заметку...' value={value}>
@@ -20,10 +29,10 @@ function Create({onButtonClick, isEdit, switchEditMode} : props) {
             <div className={styles.right}>
                 {isEdit === false ? (
                     <button onClick={()=>{
-                        onButtonClick(value)
+                        pushNote(value)
                         setValue('')
                     }} className={styles.button} type="submit">Добавить</button>
-                ) : <EditButton isEdit={isEdit} switchEditMode={switchEditMode}/>}
+                ) : <EditButton isEdit={isEdit} switchEditMode={switchEditMode} getTextareaText={getTextareaText} text={value}/>}
             </div>
         </>
     )
