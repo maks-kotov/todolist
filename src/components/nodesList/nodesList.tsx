@@ -3,9 +3,10 @@ import styles from './nodesList.module.css'
 interface props {
     nodeArr: string[],
     switchEditMode: (isEdit:boolean)=>void,
-    isEdit: boolean
+    isEdit: boolean,
+    getNodeText: (text:string)=>void
 }
-function NodesList({nodeArr, switchEditMode, isEdit} : props) {
+function NodesList({nodeArr, switchEditMode, isEdit, getNodeText} : props) {
     return (
         <>
             <span className={styles.title}>Список:</span>
@@ -16,7 +17,7 @@ function NodesList({nodeArr, switchEditMode, isEdit} : props) {
             ) 
             : 
             nodeArr.map((text, i)=>(
-                <Node isEdit={isEdit} switchEditMode={switchEditMode} key={i} text={text} />
+                <Node isEdit={isEdit} switchEditMode={switchEditMode} key={i} text={text} id={i} getNodeText={getNodeText}/>
             ))}
         </>
     )

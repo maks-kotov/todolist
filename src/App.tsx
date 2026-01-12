@@ -9,6 +9,7 @@ function App() {
   // пускай мы что-то набираем, потоом оно передаётся в родителя, потом в nodesList, а потом в node
   const [nodeArr, setNodeArr] = useState <string[]>([]) 
   const [isEdit, setIsEdit] = useState<boolean>(false) //isEdit - edit mode state
+  const [editingText, setEditingText] = useState<string>('labubu')
   function pushNode(node:string):void {
     if(node.trim()) {
       setNodeArr((prevArr:string[])=>[...prevArr, node])
@@ -17,13 +18,18 @@ function App() {
   function switchEditMode(isEdit:boolean) {
     setIsEdit(isEdit)
   } 
+  //проблемы с тайпскриптом с вот этим text внизу
+  function getNodeText(text:string) {
+    console.log(text);
+    setEditingText(text)
+  }
   return (
   <div>
       {!isEdit && <Header />} {/*если настоящее значение false, то мы показываем. !editNodeIsClicked даёт true и оно покажется  */}
       {!isEdit && <Search />}
-      <Create onButtonClick={pushNode} switchEditMode={switchEditMode} isEdit={isEdit}/>
+      <Create onButtonClick={pushNode} switchEditMode={switchEditMode} isEdit={isEdit} editingText={editingText}/>
       {!isEdit &&
-      <NodesList nodeArr={nodeArr} switchEditMode={switchEditMode} isEdit={isEdit}/>
+      <NodesList nodeArr={nodeArr} switchEditMode={switchEditMode} isEdit={isEdit} getNodeText={getNodeText}/>
       }
   </div>
   )

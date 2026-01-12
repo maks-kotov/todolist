@@ -4,7 +4,8 @@ import EditButton from '../nodesList/node/editButton/editButton'
 interface props {
     onButtonClick: (node:string) => void,
     isEdit: boolean,
-    switchEditMode: (isEdit:boolean)=>void
+    switchEditMode: (isEdit:boolean)=>void,
+    editingText: string
 }
 function Create({onButtonClick, isEdit, switchEditMode} : props) {
     const [value, setValue] = useState<string>('')
