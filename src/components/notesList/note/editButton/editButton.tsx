@@ -1,27 +1,22 @@
+import { useContext } from 'react'
 import type { NoteType } from '../../../../types/note'
 import styles from './editButton.module.css'
+import { NoteEditingActionsContext } from '../../../../contexts/noteEditingActions'
 interface props {
-    switchEditMode: (isEdit:boolean)=>void,
-    isEdit: boolean,
+    isEdit: boolean, //нужно для динамичной отрисовки и вставления текста в textarea
     note: NoteType, 
-    getEditingNote?: (note:NoteType)=>void,
-    getEditedNote?: (note:NoteType)=>void
 }
-function EditButton({switchEditMode, note, isEdit, getEditingNote, getEditedNote}:props) {
+function EditButton({note, isEdit}:props) {
+    const noteEditingActions = useContext(NoteEditingActionsContext)
     return (
                 <button onClick={()=>{
-                    //!isEdit && getNodeText?.(text)
-                    if (getEditingNote) {
-                    getEditingNote(note)
-                    console.log('editing: ',note);
+                    if (noteEditingActions?.getEditingNote) {
+                    noteEditingActions.getEditingNote(note)
                     }
-                    if (getEditedNote) {
-                    getEditedNote(note)
-                    console.log('edited: ',note);
-                    
+                    if (noteEditingActions?.getEditedNote) {
+                    noteEditingActions.getEditedNote(note)
                     }
-                    //getNodeText?.(text) //если isEdit false, то передаём текст заметки наверх
-                    switchEditMode(!isEdit)
+                    noteEditingActions?.switchEditMode(!isEdit)
                     }
                 } className={styles.edit}>
                     <img src="./src/assets/icons/edit.png" alt="icon" />

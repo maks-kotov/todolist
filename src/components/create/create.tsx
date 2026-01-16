@@ -5,11 +5,9 @@ import type { NoteType } from '../../types/note'
 interface props {
     pushNote: (node:NoteType) => void,
     isEdit: boolean,
-    switchEditMode: (isEdit:boolean)=>void,
     editingNote: NoteType,
-    getEditedNote: (note:NoteType)=>void
 }
-function Create({pushNote, isEdit, switchEditMode, editingNote, getEditedNote} : props) {
+function Create({pushNote, isEdit, editingNote} : props) {
     const [note, setNote] = useState<NoteType>({
                             id: 0,
                             title: 'no',
@@ -24,7 +22,7 @@ function Create({pushNote, isEdit, switchEditMode, editingNote, getEditedNote} :
     }
     useEffect(()=>{
         if(isEdit) {
-            setNote({...note, id: editingNote.id, title: editingNote.title,content:editingNote.content, completed: editingNote.completed}) // при нажатии на кнопку готовая изменённая заметка приобретает все те же параметры, которые были у редактируемой. и  в nodesList я присваиваю свойствам редактируемой все значения изменённой  
+            setNote({...note, id: editingNote.id, title: editingNote.title,content:editingNote.content, completed: editingNote.completed}) // при нажатии на кнопку готовая изменённая заметка приобретает все те же параметры, которые были у редактируемой. и  в nodesList я присваиваю свойствам редактируемой все значения изменённой  . рассказывать об этом в readme?
         }
         else {
             setNote({...note, content: ''})
@@ -47,7 +45,7 @@ function Create({pushNote, isEdit, switchEditMode, editingNote, getEditedNote} :
                         setCounter((c)=>++c)
                         setNote({...note, content: ''})
                     }} className={styles.button} type="submit">Добавить</button>
-                ) : <EditButton isEdit={isEdit} switchEditMode={switchEditMode} getEditedNote={getEditedNote} note={note}/>}
+                ) : <EditButton isEdit={isEdit} note={note}/>}
             </div>
         </>
     )

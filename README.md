@@ -127,11 +127,10 @@ Cоздали переменную состояния isEdit, по умолча�
 в create.tsx передаём editingNote <string>('labubu'), isEdit <boolean>(false), getEditedNote <function> (=>void)
 
 create.tsx
-если
 при загрузке компонента:  
 
 если isEdit === false, то под textarea будет кнопка добавить   
-если isEdit === true - то под textarea будет editButton.tsx,  которой передаём isEdit, switchEditMode, getEdtiedNote  
+если isEdit === true - то под textarea будет editButton.tsx,  которой передаём isEdit, switchEditMode, getEditiedNote  
 
 если isEdit === false, то value textarea будет пустым  
 если isEdit === true, то value textarea будет = editingNote.tsx    
@@ -182,7 +181,6 @@ B textarea note.content = editingNote.content
 
 грубо говоря при клике на editButton app берёт note из notelist, передаёт в create, там оно вставляется в textarea затем при повторном нажатии editButton изменённный note  летит в app, app отдаёт изменённый note  в notelist и notelist вырисовывает новый изменённый массив
 
-надо сравнить id editingNote и editedNote. если чё присвоить id editingNote в editedNote и там уже при переборе смотреть id
 
 
 
