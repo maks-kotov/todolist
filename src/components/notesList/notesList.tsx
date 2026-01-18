@@ -6,6 +6,7 @@ interface props {
     isEdit: boolean,
 }
 function NodesList({notes, isEdit} : props) {
+    console.log(notes);
     return (
         <>
             <span className={styles.title}>Список:</span>

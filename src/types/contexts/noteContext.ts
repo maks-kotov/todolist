@@ -4,4 +4,5 @@ export type NoteContextType = {
     getEditingNote:(note:NoteType)=>void,
     update: (id:number, changes: NoteType)=>void,
     remove: (id:number)=>void,
+    toggle: (id:number)=>void,
 }

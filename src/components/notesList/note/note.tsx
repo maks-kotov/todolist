@@ -9,12 +9,24 @@ interface props {
 }
 
 function Note({note, isEdit}:props) {
-    const {remove} = useContext(NoteContext)!
+    const {remove, toggle} = useContext(NoteContext)!
     return (
         <>
             <div className={styles.container}>
-                <div className={styles.text}>{note.content}</div>
-                <button className={styles.made}>✔</button>
+                <div className=
+                    {note.completed ?  
+                    `${styles.text} ${styles.crossedOut}`
+                        : 
+                    styles.text
+                    }
+                >
+                    {note.content}
+                </div>
+                <button onClick={
+                    ()=>{
+                        toggle(note.id)
+                    }
+                } className={styles.toggle}>✔</button>
                 <button onClick={
                     ()=>{
                         remove(note.id)

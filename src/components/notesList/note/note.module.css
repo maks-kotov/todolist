@@ -16,13 +16,16 @@
     text-overflow: ellipsis;
     padding: 5px;
 }
+.crossedOut {
+    text-decoration: line-through;
+}
 .delete {
     background-color: red;
     padding: 8px;
     cursor: pointer;
     flex-shrink: 0;
 }
-.made {
+.toggle {
     background-color: green;
     padding: 8px;
     cursor: pointer;

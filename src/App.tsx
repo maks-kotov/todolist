@@ -14,6 +14,7 @@ function App() {
     update: (id:number, changes:NoteType) => void,
     add: (note:NoteType)=>void,
     remove: (id:number)=>void,
+    toggle: (id:number)=>void,
   }
 
   const useNotes = ():useNotesReturn =>  {
@@ -28,13 +29,14 @@ function App() {
     const update = (id:number, changes:NoteType) => setNotes(prev => 
       prev.map(n => n.id === id ? {...n, ...changes} : n)
     );
-    // const toggle = (id) => setNotes(prev =>
-      // prev.map(n => n.id === id ? {...n, done: !n.done} : n)
-    // );
+    const toggle = (id:number) => setNotes(prev =>
+      prev.map(n => n.id === id ? {...n, completed: !n.completed} : n)
+    );
     
-    return { notes, add, update, remove };
+    return { notes, add, update, remove, toggle };
   }
-  const {notes, update, add, remove} = useNotes()
+  const {notes, update, add, remove, toggle} = useNotes()
+
   const [isEdit, setIsEdit] = useState<boolean>(false) //isEdit - edit mode state
   const [editingNote, setEditingNote] = useState<NoteType>( // редактируемая
     { 
@@ -44,7 +46,7 @@ function App() {
       completed: false
     }
   )
-  const noteActions = { //только для editButton
+  const noteActions = {
     switchEditMode(isEdit:boolean) {
       setIsEdit(isEdit)
     },
@@ -53,22 +55,18 @@ function App() {
     },
     update,
     remove,
+    toggle
   }
 
   return (
-  <div>
-      {/*если настоящее значение false, то мы показываем. !isEdit даёт true и оно покажется  */}
-      {!isEdit && <Header />} 
-      {!isEdit && <Search />}
       <NoteContext.Provider value={noteActions}>
+        
+        {!isEdit && <Header />} 
+        {!isEdit && <Search />}
         <Create add={add} isEdit={isEdit} editingNote={editingNote}/>
+        {!isEdit &&<NotesList notes={notes} isEdit={isEdit}/>}
+
       </NoteContext.Provider>
-      {!isEdit &&
-      <NoteContext.Provider value={noteActions}>
-        <NotesList notes={notes} isEdit={isEdit}/>
-      </NoteContext.Provider>
-      }
-  </div>
   )
 }
 
