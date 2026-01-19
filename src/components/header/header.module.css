@@ -4,12 +4,4 @@
     text-align: center;
     margin-bottom: 20px;
 }
-.tribar {
-    font-size: 20px;
-    font-weight: 700;
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    cursor: pointer;
-    z-index: 2;
-}
+

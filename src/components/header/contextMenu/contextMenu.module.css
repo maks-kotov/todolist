@@ -1,3 +1,12 @@
+.tribar {
+    font-size: 20px;
+    font-weight: 700;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+    z-index: 1;
+}
 .contextMenu {
     position: absolute;
     bottom: 0;
