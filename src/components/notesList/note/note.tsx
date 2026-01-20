@@ -28,6 +28,9 @@ function Note({note, isEdit}:props) {
                 <button onClick={()=>remove(note.id)} className={styles.remove}>
                         <img src="./src/assets/icons/bin.png" alt="icon" />
                 </button>
+                <button className={styles.view}>
+                        <img src="./src/assets/icons/eye.png" alt="icon" />
+                </button>
                 <EditButton isEdit={isEdit} note={note}/>
             </div>
         </>

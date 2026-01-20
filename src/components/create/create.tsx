@@ -35,7 +35,8 @@ function Create({isEdit, editingNote, add} : props) {
     return (
         <>
             <input onChange={changeValueInput} className={styles.makeTitle} type="text" placeholder='Заголовок...' value={note.title}/>
-            <textarea onChange={changeValueTextarea} name="#" className={styles.makeText} placeholder='Основной текст... (необязательно)' value={note.content}>
+            <textarea onChange={changeValueTextarea} name="#" className={styles.makeText} placeholder='Основной текст... (необязательно)' 
+            value={note.content}>
                 
             </textarea>
             <div className={styles.right}>

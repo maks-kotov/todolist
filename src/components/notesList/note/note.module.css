@@ -52,3 +52,16 @@
     height: 22px;
     transform: translateX(3px);
 }
+.view {
+    padding: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+    background-color: #2666c3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.view img {
+    width: 22px;
+    height: 22px;
+}
