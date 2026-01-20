@@ -7,8 +7,9 @@ export type NoteContextType = {
     toggle: (id:number)=>void,
     sortByNew: ()=>void,
     sortByOld: ()=>void,
+    showAllNotes: ()=>void,
     // filterByAlphabet: ()=>void,
-    // filterByCompleteds: ()=>void,
-    // filterByUncompleteds: ()=>void,
+    filterByCompleteds: ()=>void,
+    filterByUnCompleteds: ()=>void,
     // filterByRemoveds: ()=>void,
 }

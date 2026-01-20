@@ -10,47 +10,76 @@ import { NoteContext } from './contexts/noteContext'
 
 function App() {
   type useNotesReturn = {
-    notes: NoteType[],
+    displayedNotes: NoteType[],
     update: (id:number, changes:NoteType) => void,
     add: (note:NoteType)=>void,
     remove: (id:number)=>void,
     toggle: (id:number)=>void,
     sortByNew: ()=>void,
     sortByOld: ()=>void,
+    showAllNotes: ()=>void
     // filterByAlphabet: ()=>void,
-    // filterByCompleteds: ()=>void,
-    // filterByUncompleteds: ()=>void,
+    filterByCompleteds: ()=>void,
+    filterByUnCompleteds: ()=>void,
     // filterByRemoveds: ()=>void,
   }
 
   const useNotes = ():useNotesReturn =>  {
-    //основные методы:
-    const [notes, setNotes] = useState <NoteType[]>([])
-    const add = (note:NoteType) => setNotes(prev => {
+
+    const [allNotes, setAllNotes] = useState <NoteType[]>([])
+    const [filteredNotes, setFilteredNotes] = useState<null | NoteType[]>(null)
+    const displayedNotes = filteredNotes === null ? allNotes : filteredNotes
+
+    const add = (note:NoteType) => setAllNotes(prev => {
       if(note.content.trim()) {
         return [...prev, note]
       }
       return prev
     });
-    const remove = (id:number) => setNotes(prev => prev.filter(n => n.id !== id));
-    const update = (id:number, changes:NoteType) => setNotes(prev => 
+    const remove = (id:number) => setAllNotes(prev => prev.filter(n => n.id !== id));
+    const update = (id:number, changes:NoteType) => setAllNotes(prev => 
       prev.map(n => n.id === id ? {...n, ...changes} : n)
     );
-    const toggle = (id:number) => setNotes(prev =>
+    const toggle = (id:number) => setAllNotes(prev =>
       prev.map(n => n.id === id ? {...n, completed: !n.completed} : n)
     );
     
-    //фильтры:
-    // const sortByOld = notes.sort((a,b)=>b.createdAt.getTime() - a.createdAt.getTime())
+    //сортировка::
     const sortByNew = () => {
-      setNotes([...notes].sort((a,b)=>b.createdAt.getTime() - a.createdAt.getTime()))
+      setAllNotes([...allNotes].sort((a,b)=>b.createdAt.getTime() - a.createdAt.getTime()))
     }
     const sortByOld = () => {
-      setNotes([...notes].sort((a,b)=>a.createdAt.getTime() - b.createdAt.getTime()))
+      setAllNotes([...allNotes].sort((a,b)=>a.createdAt.getTime() - b.createdAt.getTime()))
     }
-    return { notes, add, update, remove, toggle, sortByNew, sortByOld };
+    //фильтры:
+    const showAllNotes = ()=> {
+      setFilteredNotes(null)
+    }
+    const filterByCompleteds = ()=> {
+      setFilteredNotes(null)
+      const filtered = allNotes.filter((note)=>note.completed)
+      setFilteredNotes(filtered)
+    }
+    const filterByUnCompleteds = ()=> {
+      setFilteredNotes(null)
+      const filtered = allNotes.filter((note)=>!note.completed)
+      setFilteredNotes(filtered)
+    }
+
+    return { displayedNotes, add, update, remove, toggle, sortByNew, sortByOld, filterByCompleteds, showAllNotes, filterByUnCompleteds };
   }
-  const {notes, update, add, remove, toggle, sortByNew, sortByOld} = useNotes()
+  const {displayedNotes,
+          update, 
+          add, 
+          remove, 
+          toggle, 
+          sortByNew, 
+          sortByOld, 
+          showAllNotes,
+          filterByCompleteds,
+          filterByUnCompleteds
+
+        } = useNotes()
 
   const [isEdit, setIsEdit] = useState<boolean>(false) //isEdit - edit mode state
   const [editingNote, setEditingNote] = useState<NoteType>( // редактируемая
@@ -73,7 +102,10 @@ function App() {
     remove,
     toggle,
     sortByNew,
-    sortByOld
+    sortByOld,
+    filterByCompleteds,
+    showAllNotes,
+    filterByUnCompleteds
   }
 
   return (
@@ -82,7 +114,7 @@ function App() {
         {!isEdit && <Header />} 
         {!isEdit && <Search />}
         <Create add={add} isEdit={isEdit} editingNote={editingNote}/>
-        {!isEdit &&<NotesList notes={notes} isEdit={isEdit}/>}
+        {!isEdit &&<NotesList displayedNotes={displayedNotes} isEdit={isEdit}/>}
 
       </NoteContext.Provider>
   )
