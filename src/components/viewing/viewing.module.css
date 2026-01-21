@@ -3,6 +3,9 @@
     border-radius: 10px;
     padding: 10px 10px 60px 10px;
     position: relative;
+    margin-top: 20px;
+    overflow-wrap: break-word;
+
 }
 .title {
     font-weight: 600;
@@ -12,7 +15,6 @@
     margin-bottom: 10px;
 }
 .text {
-    overflow-wrap: break-word;
     max-width: 100%;
     color: #333;
     line-height: 1.5;

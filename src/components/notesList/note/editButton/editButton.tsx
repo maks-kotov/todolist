@@ -9,11 +9,11 @@ interface props {
     changes?: NoteType
 }
 function EditButton({note, id, isEdit}:props) {
-    const {getEditingNote, switchEditMode,update} = useContext(NoteContext)!
+    const {getCurrentNote, switchEditMode, update} = useContext(NoteContext)!
     return (
                 <button onClick={()=>{
-                    if (getEditingNote) {
-                        getEditingNote(note)
+                    if (getCurrentNote) {
+                        getCurrentNote(note)
                         
                     }
                     if(update && id !== undefined) {

@@ -86,7 +86,7 @@ function App() {
   const [isEdit, setIsEdit] = useState<boolean>(false) //isEdit - edit mode state
   const [isView, setIsView] = useState<boolean>(false)
   
-  const [editingNote, setEditingNote] = useState<NoteType>( // редактируемая
+  const [currentNote, setCurrentNote] = useState<NoteType>( // редактируемая
     { 
       id: 0,
       title: 'no',
@@ -103,8 +103,8 @@ function App() {
     switchViewMode(isView:boolean) {
       setIsView(isView)
     },
-    getEditingNote(note:NoteType) {
-      setEditingNote(note)
+    getCurrentNote(note:NoteType) { // изменить на getCurrentNote и её зависимости
+      setCurrentNote(note)
     },
     update,
     remove,
@@ -121,9 +121,9 @@ function App() {
         
         {!isEdit && !isView && <Header />} 
         {/* {!isEdit && <Search />} */}
-        {!isView && <Create add={add} isEdit={isEdit} editingNote={editingNote}/>}
+        {!isView && <Create add={add} isEdit={isEdit} currentNote={currentNote}/>}
         {!isEdit && !isView && <NotesList displayedNotes={displayedNotes} isEdit={isEdit} isView={isView}/>}
-        {!isEdit && isView && <Viewing isView={isView}/>}
+        {!isEdit && isView && <Viewing currentNote={currentNote} isView={isView}/>}
       </NoteContext.Provider>
   )
 }
