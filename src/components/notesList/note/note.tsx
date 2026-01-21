@@ -21,7 +21,7 @@ function Note({note, isEdit, isView}:props) {
                     styles.text
                     }
                 >
-                    {note.content}
+                    {note.title}
                 </div>
                 <button onClick={()=>toggle(note.id)} className={styles.toggle}>
                     {note.completed ? '✘' : '✔'}    
