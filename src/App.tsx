@@ -123,7 +123,7 @@ function App() {
         {/* {!isEdit && <Search />} */}
         {!isView && <Create add={add} isEdit={isEdit} editingNote={editingNote}/>}
         {!isEdit && !isView && <NotesList displayedNotes={displayedNotes} isEdit={isEdit} isView={isView}/>}
-        {!isEdit && isView && <Viewing />}
+        {!isEdit && isView && <Viewing isView={isView}/>}
       </NoteContext.Provider>
   )
 }
