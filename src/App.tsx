@@ -7,7 +7,7 @@ import { useState } from 'react'
 import type { NoteType } from './types/note'
 import { NoteContext } from './contexts/noteContext'
 import Viewing from './components/viewing/viewing'
-
+import { supabase } from './lib/supabase.ts'
 
 function App() {
   
@@ -39,6 +39,11 @@ function App() {
     }
 
     const add = (note:NoteType) => setAllNotes(prev => {
+      // try {
+      //   const {data, error} = await supabase
+      // } catch (error) {
+        
+      // }
       if(note.content.trim()) {
         return [...prev, note]
       }
