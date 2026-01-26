@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import styles from "./notesFilters.module.css"
-import { NoteContext } from "../../../../contexts/noteContext"
+import { NoteContext } from "../../../../../contexts/noteContext"
 function NotesFilters() {
     const { sortByNew, sortByOld, filterByCompleteds, showAllNotes, filterByUnCompleteds } = useContext(NoteContext)!
     return (

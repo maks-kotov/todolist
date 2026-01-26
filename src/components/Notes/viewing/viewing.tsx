@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import styles from './viewing.module.css'
-import { NoteContext } from '../../contexts/noteContext'
-import type { NoteType } from '../../types/note'
+import type { NoteType } from '../../../types/note'
+import { NoteContext } from '../../../contexts/noteContext'
 interface props {
     isView: boolean,
     currentNote: NoteType

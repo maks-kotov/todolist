@@ -1,7 +1,7 @@
 import { useEffect, useState} from 'react'
 import styles from './create.module.css'
 import EditButton from '../notesList/note/editButton/editButton'
-import type { NoteType } from '../../types/note'
+import type { NoteType } from '../../../types/note'
 interface props {
     isEdit: boolean,
     currentNote: NoteType,

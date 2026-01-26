@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import type { NoteType } from '../../../types/note'
 import EditButton from './editButton/editButton'
 import styles from './note.module.css'
-import { NoteContext } from '../../../contexts/noteContext'
+import type { NoteType } from '../../../../types/note'
+import { NoteContext } from '../../../../contexts/noteContext'
 interface props {
     note: NoteType,
     isEdit: boolean,

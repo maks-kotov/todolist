@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import type { NoteType } from '../../../../types/note'
 import styles from './editButton.module.css'
-import { NoteContext } from '../../../../contexts/noteContext'
+import type { NoteType } from '../../../../../types/note'
+import { NoteContext } from '../../../../../contexts/noteContext'
 interface props {
     isEdit: boolean, //нужно для динамичной отрисовки и вставления текста в textarea
     note: NoteType, 
