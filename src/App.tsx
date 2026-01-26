@@ -3,7 +3,7 @@ import Header from './components/header/header'
 // import Search from './components/search/search'
 import Create from './components/create/create'
 import NotesList from './components/notesList/notesList'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { NoteType } from './types/note'
 import { NoteContext } from './contexts/noteContext'
 import Viewing from './components/viewing/viewing'
@@ -38,9 +38,22 @@ function App() {
     const incrementId = (id:number)=> {
       setId(++id)
     }
-    const fetchNotes = ()=> {
-      console.log('e');
-      
+    const fetchNotes = async ()=> {
+      supabase.auth.getSession()
+      .then(({data: { session }})=> {
+        console.log(session);
+        
+      })
+      try {
+        const {data, error} = await supabase
+        .from('notes')
+        .select('*')
+        .order('createdAt', {ascending: false})
+        if(error) throw error;
+        setAllNotes(data || [])
+      } catch (error) {
+        console.log("ОШИБОЧКА");
+      }
     }
 
     
@@ -120,9 +133,7 @@ function App() {
 
         } = useNotes()
 console.log(displayedNotes);
-  useEffect(()=> {
-    fetchNotes()
-  }, [displayedNotes])
+  
   const [isEdit, setIsEdit] = useState<boolean>(false) //isEdit - edit mode state
   const [isView, setIsView] = useState<boolean>(false)
   
@@ -172,7 +183,7 @@ console.log(displayedNotes);
         {!isEdit && !isView && <Header />} 
         {/* {!isEdit && <Search />} */}
         {!isView && <Create id={id} incrementId={incrementId} add={add} isEdit={isEdit} currentNote={currentNote}/>}
-        {!isEdit && !isView && <NotesList displayedNotes={displayedNotes} isEdit={isEdit} isView={isView}/>}
+        {!isEdit && !isView && <NotesList fetchNotes={fetchNotes} displayedNotes={displayedNotes} isEdit={isEdit} isView={isView}/>}
         {!isEdit && isView && <Viewing currentNote={currentNote} isView={isView}/>}
       </NoteContext.Provider>
   )

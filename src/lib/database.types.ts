@@ -16,25 +16,28 @@ export type Database = {
     Tables: {
       notes: {
         Row: {
-          completed: boolean | null
-          content: string | null
+          completed: boolean 
+          content: string 
           createdAt: Date
           id: number
-          title: string | null
+          title: string 
+          user_id: number
         }
         Insert: {
-          completed?: boolean | null
-          content?: string | null
-          createdAt?: Date
-          id?: number
-          title?: string | null
+          completed: boolean
+          content: string
+          createdAt: Date
+          id: number
+          title: string
+          user_id: number
         }
         Update: {
-          completed?: boolean | null
-          content?: string | null
-          createdAt?: Date
-          id?: number
-          title?: string | null
+          completed: boolean
+          content: string
+          createdAt: Date
+          id: number
+          title: string
+          user_id: number 
         }
         Relationships: []
       }
