@@ -11,11 +11,11 @@ export default function useNotes() {
       setId(++id)
     }
     const fetchNotes = async ()=> {
-      supabase.auth.getSession()
-      .then(({data: { session }})=> {
-        console.log(session);
+      // supabase.auth.getSession()
+      // .then(({data: { session }})=> {
+      //   console.log(session);
         
-      })
+      // })
       try {
         const {data, error} = await supabase
         .from('notes')

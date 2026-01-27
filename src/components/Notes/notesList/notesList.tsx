@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
-import type { NoteType } from '../../types/note'
 import Note from './note/note'
 import styles from './notesList.module.css'
+import type { NoteType } from '../../../types/note'
 interface props {
     displayedNotes: NoteType[],
     isEdit: boolean,

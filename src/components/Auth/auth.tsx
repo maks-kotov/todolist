@@ -1,19 +1,74 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { supabase } from "../../lib/supabase";
 import styles from "./auth.module.css"
+import Spinner from "./spinner/spinner";
 function Auth() {
-    const [email, setEmail] = useState('');      // Храним введённый email
-    const [password, setPassword] = useState(''); // Храним введённый пароль
-    const [isLogin, setIsLogin] = useState(true); // Режим: вход или регистрация?
-    const [loading, setLoading] = useState(false); // Идёт загрузка?
-    const [message, setMessage] = useState('');   // Сообщения об ошибках/успехе
+    const [email, setEmail] = useState<string>('');      // Храним введённый email
+    const [password, setPassword] = useState<string>(''); // Храним введённый пароль
+    const [isLogin, setIsLogin] = useState<boolean>(true); // Режим: вход или регистрация?
+    const [loading, setLoading] = useState<boolean>(false); // Идёт загрузка?
+    const [message, setMessage] = useState<string>('');   // Сообщения об ошибках/успехе
     
-    function handleSubmit() {
-        
-    }
+    async function handleSubmit(e:FormEvent<HTMLFormElement>) {
+      e.preventDefault(); // 1. Предотвращаем перезагрузку страницы
+      setLoading(true);   // 2. Показываем "Загрузка..."
+      setMessage('');     // 3. Очищаем предыдущие сообщения
+    
+      try {
+        if (isLogin) {
+          // 4. ВХОД по email и паролю
+          const { error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+          if (error) throw error; // Если ошибка - переходим в catch
+        } else {
+          // 5. РЕГИСТРАЦИЯ по email и паролю
+          const { error } = await supabase.auth.signUp({
+            email,
+            password,
+          });
+          if (error) throw error;
+          setMessage('Подвердите вашу электронную почту.');
+        }
+      } 
+      catch(error) {
+        if(error instanceof Error) {
+
+          if (error.message.includes('Invalid login credentials')) {
+            setMessage('Неверный email или пароль');
+          }
+    
+          else if (error.message.includes('email not confirmed')) {
+            setMessage('Подтвердите ваш email')
+          }
+          
+          else if (error.message.includes('user already registered')) {
+            setMessage('Пользователь с таким email уже существует')
+          }
+          
+          else if (error.message.includes('password should be at least')) {
+            setMessage('Пароль должен быть не менее 6 символов')
+          }
+          
+          else if (error.message.includes('too many requests')) {
+            setMessage('Слишком много попыток. Попробуйте позже')
+          }
+          
+          else {
+            setMessage('какая-то ошибка(')
+          }
+        }
+      } 
+      finally {
+    // 7. В ЛЮБОМ СЛУЧАЕ
+    setLoading(false); // Скрываем "Загрузка..."
+  }
+}
     return (
         <>
-         <div className={styles.container}>
+    <div className={styles.overlay}></div>
+    <div className={styles.container}>
     {/* Заголовок меняется в зависимости от режима */}
     <h2 className={styles.title}>{isLogin ? 'Вход' : 'Регистрация'}</h2>
     
@@ -41,15 +96,26 @@ function Auth() {
       
       {/* Кнопка меняет текст в зависимости от состояния */}
       <button type="submit" disabled={loading} className={styles.button}>
-        {loading ? 'Загрузка...' : (isLogin ? 'Войти' : 'Зарегистрироваться')}
+        {
+        loading ? 
+        <div className={styles.loadingStatus}>
+          <span>Загрузка...</span>
+          <Spinner />
+        </div>
+        : (isLogin ? 'Войти' : 'Зарегистрироваться')
+        }
       </button>
     </form>
     
     {/* Показываем сообщения (ошибки или подтверждение) */}
-    {message && <p className="message">{message}</p>}
+    {message && <p className={styles.message}>{message}</p>}
     
     {/* Кнопка переключения между входом и регистрацией */}
-    <button className={styles.hasAccount} onClick={() => setIsLogin(!isLogin)}>
+    <button className={styles.hasAccount} onClick={() => {
+      setIsLogin(!isLogin)
+      setEmail('')
+      setPassword('')
+    }}>
       {isLogin ? 
       <>
       <span className={styles.hasAccount}>Нет аккаунта? </span>

@@ -61,9 +61,18 @@ function Notes() {
             <NoteContext.Provider value={noteActions}>
                 {!isEdit && !isView && <Header />} 
                 {/* {!isEdit && <Search />} */}
-                {!isView && <Create id={id} incrementId={incrementId} add={add} isEdit={isEdit} currentNote={currentNote}/>}
-                {!isEdit && !isView && <NotesList fetchNotes={fetchNotes} displayedNotes={displayedNotes} isEdit={isEdit} isView={isView}/>}
-                {!isEdit && isView && <Viewing currentNote={currentNote} isView={isView}/>}
+                {
+                !isView && 
+                <Create id={id} incrementId={incrementId} add={add} isEdit={isEdit} currentNote={currentNote}/>
+                }
+                {
+                !isEdit && !isView && 
+                <NotesList fetchNotes={fetchNotes} displayedNotes={displayedNotes} isEdit={isEdit} isView={isView}/>
+                }
+                {
+                !isEdit && isView && 
+                <Viewing currentNote={currentNote} isView={isView}/>
+                }
             </NoteContext.Provider>
         </>
     )
