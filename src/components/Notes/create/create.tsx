@@ -6,14 +6,14 @@ interface props {
     isEdit: boolean,
     currentNote: NoteType,
     add: (note:NoteType)=>void,
-    id: number,
-    incrementId: (id:number)=>void
+    note_id: number,
+    incrementNote_Id: (note_id:number)=>void
 }
-function Create({id, incrementId,isEdit, currentNote, add} : props) {
+function Create({note_id, incrementNote_Id,isEdit, currentNote, add} : props) {
     // console.log('я сработал (create)');
     
     const [note, setNote] = useState<NoteType>({ // только при первом рендере
-                            id: 0,
+                            note_id: 0,
                             title: '',
                             content: '',
                             completed: false,
@@ -30,7 +30,7 @@ function Create({id, incrementId,isEdit, currentNote, add} : props) {
     }
     useEffect(()=>{
         if(isEdit) {
-            setNote({...note, id: currentNote.id, title: currentNote.title,content:currentNote.content, completed: currentNote.completed, createdAt: currentNote.createdAt}) // при нажатии на кнопку готовая изменённая заметка приобретает все те же параметры, которые были у редактируемой.
+            setNote({...note, note_id: currentNote.note_id, title: currentNote.title,content:currentNote.content, completed: currentNote.completed, createdAt: currentNote.createdAt}) // при нажатии на кнопку готовая изменённая заметка приобретает все те же параметры, которые были у редактируемой.
         }
         else {
             setNote({...note, content: '', title: ''})
@@ -47,16 +47,16 @@ function Create({id, incrementId,isEdit, currentNote, add} : props) {
                 {isEdit === false ? (
                     <button onClick={()=>{
                         add({
-                            id: id, // каждое нажатие на button меняет counter
+                            note_id: note_id, // каждое нажатие на button меняет counter
                             title: note.title, // onChangeI меняет note.title
                             content: note.content, // onChangeT меняет note.content
                             completed: false, // нам он ниоткуда не приходит.
                             createdAt: new Date(), // каждый раз новая дата создания
                         })
-                        incrementId(id)
+                        incrementNote_Id(note_id)
                         setNote({...note, content: '', title: ''})
                     }} className={styles.button} type="submit">Добавить</button>
-                ) : <EditButton isEdit={isEdit} note={note} id={currentNote.id} changes={currentNote}/>}
+                ) : <EditButton isEdit={isEdit} note={note} id={currentNote.note_id} changes={currentNote}/>}
             </div>
         </>
     )

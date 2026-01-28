@@ -19,25 +19,25 @@ export type Database = {
           completed: boolean 
           content: string 
           createdAt: Date
-          id: number
+          note_id: number
           title: string 
-          user_id: number
+          user_id: string
         }
         Insert: {
           completed: boolean
           content: string
           createdAt: Date
-          id: number
+          note_id: number
           title: string
-          user_id: number
+          user_id: string
         }
         Update: {
           completed: boolean
           content: string
           createdAt: Date
-          id: number
+          note_id: number
           title: string
-          user_id: number 
+          user_id: string 
         }
         Relationships: []
       }

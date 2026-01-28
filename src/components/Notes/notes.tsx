@@ -19,8 +19,8 @@ function Notes() {
         showAllNotes,
         filterByCompleteds,
         filterByUnCompleteds,
-        id,
-        incrementId,
+        note_id,
+        incrementNote_Id,
         getNotes
         } = useNotes()
 
@@ -28,7 +28,7 @@ function Notes() {
     const [isView, setIsView] = useState<boolean>(false)
     const [currentNote, setCurrentNote] = useState<NoteType>( // редактируемая
     { 
-      id: 0,
+      note_id: 0,
       title: 'no',
       content: 'no',
       completed: false,
@@ -57,7 +57,7 @@ function Notes() {
                 {/* {!isEdit && <Search />} */}
                 {
                 !isView && 
-                <Create id={id} incrementId={incrementId} add={add} isEdit={isEdit} currentNote={currentNote}/>
+                <Create note_id={note_id} incrementNote_Id={incrementNote_Id} add={add} isEdit={isEdit} currentNote={currentNote}/>
                 }
                 {
                 !isEdit && !isView && 

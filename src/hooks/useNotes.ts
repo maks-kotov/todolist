@@ -1,25 +1,29 @@
 import { useState } from "react"
 import type { NoteType } from "../types/note"
 import { supabase } from "../lib/supabase"
+import { useAuth } from "../contexts/authContext"
 
 export default function useNotes() {
     const [allNotes, setAllNotes] = useState <NoteType[]>([])
     const [filteredNotes, setFilteredNotes] = useState<null | NoteType[]>(null)
     const displayedNotes = filteredNotes === null ? allNotes : filteredNotes
-    const [id, setId] = useState<number>(0)
-    const incrementId = (id:number)=> {
-      setId(++id)
+    const [note_id, setNote_Id] = useState<number>(0)
+    const {session} = useAuth()
+    const incrementNote_Id = (note_id:number)=> {
+      setNote_Id(++note_id)
     }
     const getNotes = async ()=> {
       try {
-        
+        if(session !== null) {
+          const {data, error} = await supabase
+          .from('notes')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .order('createdAt', {ascending: false})
+          if(error) throw error;
+          setAllNotes(data || [])
+        }
 
-        const {data, error} = await supabase
-        .from('notes')
-        .select('*')
-        .order('createdAt', {ascending: false})
-        if(error) throw error;
-        setAllNotes(data || [])
       } catch (error) {
         console.log("ОШИБОЧКА");
       }
@@ -35,12 +39,12 @@ export default function useNotes() {
         return prev
       });
     }
-    const remove = (id:number) => setAllNotes(prev => prev.filter(n => n.id !== id));
-    const update = (id:number, changes:NoteType) => setAllNotes(prev => 
-      prev.map(n => n.id === id ? {...n, ...changes} : n)
+    const remove = (note_id:number) => setAllNotes(prev => prev.filter(n => n.note_id !== note_id));
+    const update = (note_id:number, changes:NoteType) => setAllNotes(prev => 
+      prev.map(n => n.note_id === note_id ? {...n, ...changes} : n)
     );
-    const toggle = (id:number) => setAllNotes(prev =>
-      prev.map(n => n.id === id ? {...n, completed: !n.completed} : n)
+    const toggle = (note_id:number) => setAllNotes(prev =>
+      prev.map(n => n.note_id === note_id ? {...n, completed: !n.completed} : n)
     );
     
     //сортировка::
@@ -65,5 +69,5 @@ export default function useNotes() {
       setFilteredNotes(filtered)
     }
 
-    return { displayedNotes, id, incrementId, add, update, remove, toggle, sortByNew, sortByOld, filterByCompleteds, filterByUnCompleteds, showAllNotes,  getNotes };
+    return { displayedNotes, note_id, incrementNote_Id, add, update, remove, toggle, sortByNew, sortByOld, filterByCompleteds, filterByUnCompleteds, showAllNotes,  getNotes };
 }

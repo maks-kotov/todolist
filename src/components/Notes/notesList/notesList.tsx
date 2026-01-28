@@ -10,6 +10,7 @@ interface props {
 }
 function NotesList({displayedNotes, isEdit, isView, getNotes} : props) {
     useEffect(()=> {
+        console.log('notesList перерисовался');
         getNotes()
     }, [])
     return (
@@ -19,7 +20,7 @@ function NotesList({displayedNotes, isEdit, isView, getNotes} : props) {
                 <p className={styles.emptyMessage}>Создайте первую заметку</p>
             ) 
             : 
-            displayedNotes.map(note=> <Note isEdit={isEdit} isView={isView} note={note} key={note.id}/>)}
+            displayedNotes.map(note=> <Note isEdit={isEdit} isView={isView} note={note} key={note.note_id}/>)}
         </>
     )
 }
