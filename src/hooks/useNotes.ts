@@ -10,13 +10,10 @@ export default function useNotes() {
     const incrementId = (id:number)=> {
       setId(++id)
     }
-    const fetchNotes = async ()=> {
-      // supabase.auth.getSession()
-      // .then(({data: { session }})=> {
-      //   console.log(session);
-        
-      // })
+    const getNotes = async ()=> {
       try {
+        
+
         const {data, error} = await supabase
         .from('notes')
         .select('*')
@@ -68,5 +65,5 @@ export default function useNotes() {
       setFilteredNotes(filtered)
     }
 
-    return { displayedNotes, id, incrementId, add, update, remove, toggle, sortByNew, sortByOld, filterByCompleteds, filterByUnCompleteds, showAllNotes,  fetchNotes };
+    return { displayedNotes, id, incrementId, add, update, remove, toggle, sortByNew, sortByOld, filterByCompleteds, filterByUnCompleteds, showAllNotes,  getNotes };
 }

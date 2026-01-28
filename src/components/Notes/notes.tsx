@@ -8,8 +8,7 @@ import NotesList from "./notesList/notesList"
 import Viewing from "./viewing/viewing"
 
 function Notes() {
-    const 
-        {
+    const { //тут методы заметок и информация про них
         displayedNotes,
         update, 
         add, 
@@ -22,8 +21,8 @@ function Notes() {
         filterByUnCompleteds,
         id,
         incrementId,
-        fetchNotes
-        }                   = useNotes()
+        getNotes
+        } = useNotes()
 
     const [isEdit, setIsEdit] = useState<boolean>(false) //isEdit - edit mode state
     const [isView, setIsView] = useState<boolean>(false)
@@ -37,28 +36,23 @@ function Notes() {
     }
 )
 
-    const noteActions = {
-        switchEditMode(isEdit:boolean) {
-        setIsEdit(isEdit)
-    },
-        switchViewMode(isView:boolean) {
-        setIsView(isView)
-    },
-        getCurrentNote(note:NoteType) { // изменить на getCurrentNote и её зависимости
-        setCurrentNote(note)
-    },
-    update,
-    remove,
-    toggle,
-    sortByNew,
-    sortByOld,
-    filterByCompleteds,
-    showAllNotes,
-    filterByUnCompleteds
-}
     return (
         <>
-            <NoteContext.Provider value={noteActions}>
+            <NoteContext.Provider value={
+                {
+                    update,
+                    remove,
+                    toggle,
+                    sortByNew,
+                    sortByOld,
+                    filterByCompleteds,
+                    showAllNotes,
+                    filterByUnCompleteds,
+                    switchEditMode: (isEdit:boolean)=>setIsEdit(isEdit),
+                    switchViewMode: (isView:boolean)=>setIsView(isView),
+                    getCurrentNote: (note:NoteType)=>setCurrentNote(note)
+                }
+            }>
                 {!isEdit && !isView && <Header />} 
                 {/* {!isEdit && <Search />} */}
                 {
@@ -67,7 +61,7 @@ function Notes() {
                 }
                 {
                 !isEdit && !isView && 
-                <NotesList fetchNotes={fetchNotes} displayedNotes={displayedNotes} isEdit={isEdit} isView={isView}/>
+                <NotesList getNotes={getNotes} displayedNotes={displayedNotes} isEdit={isEdit} isView={isView}/>
                 }
                 {
                 !isEdit && isView && 

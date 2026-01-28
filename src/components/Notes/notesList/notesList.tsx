@@ -6,11 +6,11 @@ interface props {
     displayedNotes: NoteType[],
     isEdit: boolean,
     isView: boolean,
-    fetchNotes: ()=>void
+    getNotes: ()=>void
 }
-function NotesList({displayedNotes, isEdit, isView, fetchNotes} : props) {
+function NotesList({displayedNotes, isEdit, isView, getNotes} : props) {
     useEffect(()=> {
-        fetchNotes()
+        getNotes()
     }, [])
     return (
         <>
