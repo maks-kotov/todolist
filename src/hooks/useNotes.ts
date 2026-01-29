@@ -6,12 +6,8 @@ import { useAuth } from "../contexts/authContext";
 export default function useNotes() {
   const [allNotes, setAllNotes] = useState<NoteType[]>([]);
   const [filteredNotes, setFilteredNotes] = useState<null | NoteType[]>(null);
-  const displayedNotes = filteredNotes === null ? allNotes : filteredNotes; // я забыл как displayedNotes попадают в notesList при изменении состояния allNotes
-  // const [note_id, setNote_Id] = useState<number>(0)
+  const displayedNotes = filteredNotes === null ? allNotes : filteredNotes;
   const { session } = useAuth();
-  // const incrementNote_Id = (note_id:number)=> {
-  //   setNote_Id(++note_id)
-  // }
   const getNotes = async () => {
     try {
       if (session !== null) {
