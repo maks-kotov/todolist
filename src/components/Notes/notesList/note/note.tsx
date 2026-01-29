@@ -23,10 +23,10 @@ function Note({note, isEdit, isView}:props) {
                 >
                     {note.title}
                 </div>
-                <button onClick={()=>toggle(note.id)} className={styles.toggle}>
+                <button onClick={()=>toggle(note.note_id)} className={styles.toggle}>
                     {note.completed ? '✘' : '✔'}    
                 </button>
-                <button onClick={()=>remove(note.id)} className={styles.remove}>
+                <button onClick={()=>remove(note.note_id)} className={styles.remove}>
                         <img src="./src/assets/icons/bin.png" alt="icon" />
                 </button>
                 <button onClick={()=>

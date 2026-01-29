@@ -27,7 +27,6 @@ export type Database = {
           completed: boolean
           content: string
           createdAt: Date
-          note_id: number
           title: string
           user_id: string
         }
