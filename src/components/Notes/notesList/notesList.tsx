@@ -13,9 +13,9 @@ interface props {
 function NotesList({displayedNotes, isEdit, isView, getNotes} : props) {
     const {isLoading} = useAuth()
     useEffect(()=> {
-        console.log('notesList перерисовался');
         getNotes()
     }, [])
+    console.log('перерисовка. видоизменённый массив: ', displayedNotes);
     return (
         <>
             <span className={styles.title}>Список:</span>

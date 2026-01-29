@@ -35,7 +35,7 @@ export default function useNotes() {
           
           const { data, error } = await supabase
             .from("notes")
-            .insert([
+            .insert([ //note_id будет добавляться автоматически бдшкой 
               {
                 title: note.title,
                 content: note.content,
@@ -48,7 +48,7 @@ export default function useNotes() {
             .select();
   
           if (error) {
-            console.log(error.message);
+            console.log('ошибка: ', error.message);
             return;
           } 
           
@@ -62,9 +62,6 @@ export default function useNotes() {
           }
         }
       } catch (error) {
-        // if(error instanceof Error) {
-          // console.log(error.message);
-        // }
         console.log('Непредвиденная ошибка: ', error);
       }
     };
