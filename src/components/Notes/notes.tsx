@@ -20,7 +20,8 @@ function Notes() {
         showAllNotes,
         filterByCompleteds,
         filterByUnCompleteds,
-        gettingLoading
+        gettingLoading,
+        addingLoading
         } = useNotes()
 
     const [isEdit, setIsEdit] = useState<boolean>(false) //isEdit - edit mode state
@@ -56,7 +57,7 @@ function Notes() {
                 {/* {!isEdit && <Search />} */}
                 {
                 !isView && 
-                <Create add={add} isEdit={isEdit} currentNote={currentNote}/>
+                <Create  add={add} addingLoading={addingLoading} isEdit={isEdit} currentNote={currentNote}/>
                 }
                 {
                 !isEdit && !isView && 

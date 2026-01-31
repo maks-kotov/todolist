@@ -1,6 +1,6 @@
 @keyframes el2 {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 .el2 div {
   width: 35px;
@@ -8,6 +8,9 @@
   border: 6px solid #4e4e4e;
   border-top-color: transparent;
   border-radius: 50%;
+  position: absolute;
+  top: 50%;          
+  left: 50%;        
   /* transform: ;  */
 }
 .el2 div {

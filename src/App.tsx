@@ -2,7 +2,7 @@ import './App.css'
 import Notes from './components/Notes/notes.tsx'
 import Auth from './components/Auth/auth.tsx'
 import { useAuth } from './contexts/authContext.tsx'
-import BigSpinner from './components/bigSpinner/bigSpinner.tsx'
+import BigSpinnerCenter from './components/bigSpinnerCenter/bigSpinnerCenter.tsx'
 
 function App() {
   // const [session, setSession] = useState<Session | null>(null)
@@ -12,7 +12,7 @@ function App() {
       <>
         {
         // если загрузка - показываем загрузку. если нет - то форму или заметки, взависимости от session
-        isLoading ? <BigSpinner /> : !session ? <Auth /> :<Notes/>
+        isLoading ? <BigSpinnerCenter /> : !session ? <Auth /> :<Notes/>
         }
       </>
   )

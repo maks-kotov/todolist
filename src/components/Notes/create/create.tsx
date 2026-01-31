@@ -2,12 +2,14 @@ import { useEffect, useState} from 'react'
 import styles from './create.module.css'
 import EditButton from '../notesList/note/editButton/editButton'
 import type { NoteType } from '../../../types/note'
+import Spinner from '../../Auth/spinner/spinner'
 interface props {
     isEdit: boolean,
     currentNote: NoteType,
     add: (note:NoteType)=>void,
+    addingLoading: boolean
 }
-function Create({isEdit, currentNote, add} : props) {
+function Create({isEdit, currentNote, add, addingLoading} : props) {
     // console.log('я сработал (create)');
     
     const [note, setNote] = useState<NoteType>({ // только при первом рендере
@@ -42,7 +44,8 @@ function Create({isEdit, currentNote, add} : props) {
                 
             </textarea>
             <div className={styles.right}>
-                {isEdit === false ? (
+                {
+                isEdit === false ? (
                     <button onClick={()=>{
                         add({
                             note_id: -6, // каждое нажатие на button меняет counter
@@ -52,8 +55,12 @@ function Create({isEdit, currentNote, add} : props) {
                             created_at: 'create2', // каждый раз новая дата создания
                         })
                         setNote({...note, content: '', title: ''})
-                    }} className={styles.button} type="submit">Добавить</button>
-                ) : <EditButton isEdit={isEdit} note={note} id={currentNote.note_id} changes={currentNote}/>}
+                    }} className={styles.button} type="submit" disabled={addingLoading}>
+                    {addingLoading ? <Spinner /> : 'Добавить'}
+                    </button>
+                ) : <EditButton isEdit={isEdit} note={note} id={currentNote.note_id} changes={currentNote}/>
+                
+                }
             </div>
         </>
     )

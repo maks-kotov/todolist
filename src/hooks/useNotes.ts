@@ -12,7 +12,8 @@ export default function useNotes() {
   const displayedNotes = filteredNotes === null ? allNotes : filteredNotes;
   const { session } = useAuth();
   const [gettingLoading, setGettingLoading] = useState<boolean>(false)
-
+  const [addingLoading, setAddingLoading] = useState<boolean>(false)
+  //появились ещё рендеры
   useEffect(()=> { //первая загрузка
     const getNotes = async () => {
       setGettingLoading(true)
@@ -45,6 +46,7 @@ export default function useNotes() {
     //note - заметка из textarea, с её текстом.
     //мы вставляем её в бд (кроме note_id)
     //получаем её из бд и вставляем в allNotes
+    setAddingLoading(true)
     try {
       if (session !== null) {
         const { data, error } = await supabase
@@ -74,6 +76,8 @@ export default function useNotes() {
       }
     } catch (error) {
       console.log("Непредвиденная ошибка: ", error);
+    } finally {
+      setAddingLoading(false)
     }
   };
 
@@ -129,6 +133,7 @@ export default function useNotes() {
     filterByCompleteds,
     filterByUnCompleteds,
     showAllNotes,
-    gettingLoading
+    gettingLoading,
+    addingLoading
   };
 }
