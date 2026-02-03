@@ -17,6 +17,11 @@ export default function useNotes() {
   const [removingLoading, setRemovingLoading] = useState<null | number>(null)
   const [editingLoading, setEditingLoading] = useState<null | number>(null)
   const [toggleLoading, setToggleLoading] = useState<null | number>(null)
+  const [sortByNewIsActive, setSortByNewIsActive] = useState<boolean>(true)
+  const [sortByOldIsActive, setSortByOldIsActive] = useState<boolean>(false)
+  const [showAllNotesIsActive, setShowAllNotesIsActive] = useState<boolean>(true)
+  const [filterByCompletedsIsActive, setFilterByCompletedsIsActive] = useState<boolean>(false)
+  const [filterByUnCompletedsIsActive, setFilterByUnCompletedsIsActive] = useState<boolean>(false)
   //появились ещё рендеры
   useEffect(()=> { //первая загрузка
     const getNotes = async () => {
@@ -173,21 +178,34 @@ export default function useNotes() {
 
   //сортировка::
   const sortByNew = () => {
-    // setAllNotes([...allNotes].sort((a,b)=>b.createdAt.getTime() - a.createdAt.getTime()))
+    setSortByNewIsActive(true)
+    setSortByOldIsActive(false)
+    setAllNotes([...allNotes].sort((a,b)=>new Date(b.created_at).getTime() - new Date(a.created_at).getTime()))
   };
   const sortByOld = () => {
-    // setAllNotes([...allNotes].sort((a,b)=>a.createdAt.getTime() - b.createdAt.getTime()))
+    setSortByOldIsActive(true)
+    setSortByNewIsActive(false)
+    setAllNotes([...allNotes].sort((a,b)=>new Date(a.created_at).getTime() - new Date(b.created_at).getTime()))
   };
   //фильтры:
   const showAllNotes = () => {
+    setShowAllNotesIsActive(true)
+    setFilterByCompletedsIsActive(false)
+    setFilterByUnCompletedsIsActive(false)
     setFilteredNotes(null);
   };
   const filterByCompleteds = () => {
     setFilteredNotes(null);
+    setShowAllNotesIsActive(false)
+    setFilterByCompletedsIsActive(true)
+    setFilterByUnCompletedsIsActive(false)
     const filtered = allNotes.filter((note) => note.completed);
     setFilteredNotes(filtered);
   };
   const filterByUnCompleteds = () => {
+    setShowAllNotesIsActive(false)
+    setFilterByCompletedsIsActive(false)
+    setFilterByUnCompletedsIsActive(true)
     setFilteredNotes(null);
     const filtered = allNotes.filter((note) => !note.completed);
     setFilteredNotes(filtered);
@@ -209,6 +227,11 @@ export default function useNotes() {
     removingLoading,
     errorWhenAdding,
     editingLoading,
-    toggleLoading
+    toggleLoading,
+    sortByNewIsActive,
+    sortByOldIsActive,
+    showAllNotesIsActive,
+    filterByCompletedsIsActive,
+    filterByUnCompletedsIsActive
   };
 }

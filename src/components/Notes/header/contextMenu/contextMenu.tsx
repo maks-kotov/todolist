@@ -29,7 +29,6 @@ function ContextMenu() {
             {stateContextMenu && (
             <>
                 <ul className={styles.contextMenu} tabIndex={0} ref={contextMenuRef}>
-                    <div className={styles.title}>Фильтры:</div>
                     <NotesFilters />
                 </ul>
                 <div className={styles.overlay}></div>

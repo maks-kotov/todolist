@@ -14,6 +14,12 @@ export type NoteContextType = {
     filterByUnCompleteds: ()=>void,
     removingLoading: number | null,
     editingLoading: number | null,
-    toggleLoading: number | null
+    toggleLoading: number | null,
+    sortByNewIsActive: boolean,
+    sortByOldIsActive: boolean,
+    showAllNotesIsActive: boolean,
+    filterByCompletedsIsActive: boolean,
+    filterByUnCompletedsIsActive: boolean,
+    
     // filterByRemoveds: ()=>void,
 }
