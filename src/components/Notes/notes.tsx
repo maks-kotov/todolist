@@ -44,7 +44,9 @@ function Notes() {
       content: 'no',
       completed: false,
       created_at: 'what?',
-      updated_at: 'hello bro'
+      updated_at: 'hello bro',
+      removed_at: 'im fine',
+      removed_in_ui: false
     }
 )
 

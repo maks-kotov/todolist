@@ -23,6 +23,8 @@ export type Database = {
           title: string 
           user_id: string
           updated_at: string | null
+          removed_at: string | null
+          removed_in_ui: boolean
         }
         Insert: {
           completed: boolean
@@ -30,6 +32,8 @@ export type Database = {
           title: string
           user_id: string
           updated_at: null | string
+          removed_at: string | null
+          removed_in_ui: boolean
         }
         Update: {
           content?: string

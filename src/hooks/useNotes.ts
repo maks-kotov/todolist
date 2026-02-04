@@ -70,7 +70,9 @@ export default function useNotes() {
                 content: note.content,
                 completed: note.completed,
                 user_id: session.user.id,
-                updated_at: null
+                updated_at: null,
+                removed_at: null,
+                removed_in_ui: false
               },
             ])
             .select()
