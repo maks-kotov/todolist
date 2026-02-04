@@ -70,6 +70,7 @@ export default function useNotes() {
                 content: note.content,
                 completed: note.completed,
                 user_id: session.user.id,
+                updated_at: null
               },
             ])
             .select()
@@ -111,13 +112,15 @@ export default function useNotes() {
 
   const update = useCallback(async (note_id: number, changes: NoteType) => { //при нажатии на update будет 2 перерисовки: тк меняется пропс isEdit, а потом  displayedNotes. также в changes лишние данные хранятся
     try {
+      const updated_at = new Date().toISOString();
       setEditingLoading(note_id)
       if(session?.user.id) {
         const { data, error } = await supabase
           .from('notes')
-          .update({ // оставит старое значение createdAt, note_id, completed, user_id
+          .update({ // оставит старое значение createdAt, note_id, completed, user_id, updated_at
             title: changes.title,
             content: changes.content,
+            updated_at: updated_at
           })
           .eq('user_id', session.user.id)
           .eq('note_id', note_id)

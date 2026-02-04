@@ -43,7 +43,8 @@ function Notes() {
       title: 'no',
       content: 'no',
       completed: false,
-      created_at: 'what?'
+      created_at: 'what?',
+      updated_at: 'hello bro'
     }
 )
 

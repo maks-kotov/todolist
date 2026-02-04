@@ -19,6 +19,7 @@ function Create({isEdit, currentNote, add, addingLoading, errorWhenAdding} : pro
                             content: '',
                             completed: false,
                             created_at: 'create',
+                            updated_at: 'pupupup'
                         })
     
     // console.log(counter);
@@ -31,7 +32,7 @@ function Create({isEdit, currentNote, add, addingLoading, errorWhenAdding} : pro
     }
     useEffect(()=>{
         if(isEdit) {
-            setNote({...note, note_id: currentNote.note_id, title: currentNote.title,content:currentNote.content, completed: currentNote.completed, created_at: currentNote.created_at}) // при нажатии на кнопку готовая изменённая заметка приобретает все те же параметры, которые были у редактируемой.
+            setNote({...note, note_id: currentNote.note_id, title: currentNote.title,content:currentNote.content, completed: currentNote.completed, created_at: currentNote.created_at, updated_at: currentNote.updated_at}) // при нажатии на кнопку готовая изменённая заметка приобретает все те же параметры, которые были у редактируемой.
         }
         else {
             setNote({...note, content: '', title: ''})
@@ -54,6 +55,7 @@ function Create({isEdit, currentNote, add, addingLoading, errorWhenAdding} : pro
                             content: note.content, // onChangeT меняет note.content
                             completed: false, // нам он ниоткуда не приходит.
                             created_at: 'create2', // каждый раз новая дата создания
+                            updated_at: 'чд кд?'
                         })
                         setNote({...note, content: '', title: ''})
                     }} 

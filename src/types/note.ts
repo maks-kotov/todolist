@@ -4,4 +4,5 @@ export type NoteType = {
     content: string,
     completed: boolean,
     created_at: string,
+    updated_at: string | null
 }

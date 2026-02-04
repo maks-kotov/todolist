@@ -15,24 +15,27 @@ export type Database = {
   public: {
     Tables: {
       notes: {
-        Row: {
+        Row: { // select
           completed: boolean 
           content: string 
           created_at: string
           note_id: number
           title: string 
           user_id: string
+          updated_at: string | null
         }
         Insert: {
           completed: boolean
           content: string
           title: string
           user_id: string
+          updated_at: null | string
         }
         Update: {
           content?: string
           title?: string
           completed?: boolean
+          updated_at?: null | string
         }
         Relationships: []
       }
